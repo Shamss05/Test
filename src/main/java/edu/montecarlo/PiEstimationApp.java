@@ -21,7 +21,11 @@ public class PiEstimationApp extends Application {
         // Configure stage
         primaryStage.setTitle("Monte Carlo π Estimation");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(700);
+        primaryStage.setWidth(1200);
+        primaryStage.setHeight(750);
 
         // Show window
         primaryStage.show();

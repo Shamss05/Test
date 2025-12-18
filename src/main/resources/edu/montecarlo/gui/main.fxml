@@ -53,7 +53,7 @@
             </VBox>
 
             <!-- Right: Controls and Results -->
-            <VBox spacing="15" prefWidth="350">
+            <VBox spacing="15" prefWidth="450" minWidth="400">
 
                 <!-- Configuration Section -->
                 <VBox spacing="10" styleClass="panel">
@@ -84,6 +84,13 @@
                         <Spinner fx:id="threadsSpinner" editable="true"
                             GridPane.rowIndex="2" GridPane.columnIndex="1"
                             maxWidth="Infinity" />
+
+                        <Label text="Number of Trials:" GridPane.rowIndex="3" />
+                        <VBox spacing="2" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                            <Spinner fx:id="trialsSpinner" editable="true"
+                                maxWidth="Infinity" />
+                            <Label text="(for averaged error)" styleClass="hint-label" />
+                        </VBox>
                     </GridPane>
 
                     <HBox spacing="10" alignment="CENTER">
@@ -118,7 +125,7 @@
 
                     <GridPane hgap="10" vgap="8">
                         <columnConstraints>
-                            <ColumnConstraints minWidth="100" />
+                            <ColumnConstraints minWidth="130" />
                             <ColumnConstraints hgrow="ALWAYS" />
                         </columnConstraints>
 
@@ -133,19 +140,31 @@
                             GridPane.rowIndex="1" GridPane.columnIndex="1"
                             styleClass="result-value" />
 
-                        <Label text="Points Used:" GridPane.rowIndex="2" styleClass="result-label" />
-                        <Label fx:id="pointsLabel" text="0"
+                        <Label text="Avg Error (Trials):" GridPane.rowIndex="2"
+                            styleClass="result-label" />
+                        <Label fx:id="meanErrorLabel" text="---"
                             GridPane.rowIndex="2" GridPane.columnIndex="1"
                             styleClass="result-value" />
 
-                        <Label text="Runtime:" GridPane.rowIndex="3" styleClass="result-label" />
-                        <Label fx:id="timeLabel" text="---"
+                        <Label text="Std Deviation:" GridPane.rowIndex="3"
+                            styleClass="result-label" />
+                        <Label fx:id="stdDevLabel" text="---"
                             GridPane.rowIndex="3" GridPane.columnIndex="1"
                             styleClass="result-value" />
 
-                        <Label text="Actual π:" GridPane.rowIndex="4" styleClass="result-label" />
-                        <Label text="3.1415926536"
+                        <Label text="Points Used:" GridPane.rowIndex="4" styleClass="result-label" />
+                        <Label fx:id="pointsLabel" text="0"
                             GridPane.rowIndex="4" GridPane.columnIndex="1"
+                            styleClass="result-value" />
+
+                        <Label text="Runtime:" GridPane.rowIndex="5" styleClass="result-label" />
+                        <Label fx:id="timeLabel" text="---"
+                            GridPane.rowIndex="5" GridPane.columnIndex="1"
+                            styleClass="result-value" />
+
+                        <Label text="Actual π:" GridPane.rowIndex="6" styleClass="result-label" />
+                        <Label text="3.1415926536"
+                            GridPane.rowIndex="6" GridPane.columnIndex="1"
                             styleClass="result-value actual-pi" />
                     </GridPane>
                 </VBox>
@@ -164,7 +183,7 @@
                         </font>
                     </Label>
                     <TextArea fx:id="resultsTextArea" editable="false"
-                        wrapText="true" prefRowCount="8"
+                        wrapText="true" prefRowCount="12" prefHeight="300"
                         VBox.vgrow="ALWAYS" />
                 </VBox>
 

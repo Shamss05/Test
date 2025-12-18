@@ -182,6 +182,12 @@
   -fx-text-fill: #e74c3c;
 }
 
+.hint-label {
+  -fx-text-fill: #7f8c8d;
+  -fx-font-size: 10px;
+  -fx-font-style: italic;
+}
+
 /* Text area */
 .text-area {
   -fx-background-color: #fdfefe;
