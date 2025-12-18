@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="edu.montecarlo.gui.MainController"
+    stylesheets="@style.css">
+
+    <!-- Top: Title Bar -->
+    <top>
+        <VBox styleClass="header">
+            <Label text="Monte Carlo π Estimation" styleClass="title">
+                <font>
+                    <Font name="System Bold" size="24" />
+                </font>
+            </Label>
+            <Label text="Visual simulation using random point generation" styleClass="subtitle">
+                <font>
+                    <Font size="12" />
+                </font>
+            </Label>
+        </VBox>
+    </top>
+
+    <!-- Center: Main Content Area -->
+    <center>
+        <HBox spacing="15">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15" />
+            </padding>
+
+            <!-- Left: Visualization Canvas -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="Visualization" styleClass="section-title">
+                    <font>
+                        <Font name="System Bold" size="14" />
+                    </font>
+                </Label>
+
+                <StackPane styleClass="canvas-container">
+                    <Canvas fx:id="visualizationCanvas" width="500" height="500" />
+                </StackPane>
+
+                <HBox spacing="10" alignment="CENTER">
+                    <Label text="● Green: Inside Circle" styleClass="legend-inside" />
+                    <Label text="● Red: Outside Circle" styleClass="legend-outside" />
+                </HBox>
+            </VBox>
+
+            <!-- Right: Controls and Results -->
+            <VBox spacing="15" prefWidth="350">
+
+                <!-- Configuration Section -->
+                <VBox spacing="10" styleClass="panel">
+                    <Label text="Configuration" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="14" />
+                        </font>
+                    </Label>
+
+                    <GridPane hgap="10" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" />
+                            <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+
+                        <Label text="Number of Points:" GridPane.rowIndex="0" />
+                        <Spinner fx:id="pointsSpinner" editable="true"
+                            GridPane.rowIndex="0" GridPane.columnIndex="1"
+                            maxWidth="Infinity" />
+
+                        <Label text="Execution Mode:" GridPane.rowIndex="1" />
+                        <VBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                            <RadioButton fx:id="sequentialRadio" text="Sequential" />
+                            <RadioButton fx:id="parallelRadio" text="Parallel" />
+                        </VBox>
+
+                        <Label text="Number of Threads:" GridPane.rowIndex="2" />
+                        <Spinner fx:id="threadsSpinner" editable="true"
+                            GridPane.rowIndex="2" GridPane.columnIndex="1"
+                            maxWidth="Infinity" />
+                    </GridPane>
+
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button fx:id="startButton" text="Start" onAction="#handleStart"
+                            styleClass="primary-button" prefWidth="80" />
+                        <Button fx:id="stopButton" text="Stop" onAction="#handleStop"
+                            styleClass="danger-button" prefWidth="80" />
+                        <Button fx:id="clearButton" text="Clear" onAction="#handleClear"
+                            prefWidth="80" />
+                    </HBox>
+                </VBox>
+
+                <!-- Progress Section -->
+                <VBox spacing="8" styleClass="panel">
+                    <Label text="Progress" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="14" />
+                        </font>
+                    </Label>
+
+                    <ProgressBar fx:id="progressBar" progress="0" maxWidth="Infinity" />
+                    <Label fx:id="statusLabel" text="Ready" styleClass="status-label" />
+                </VBox>
+
+                <!-- Results Section -->
+                <VBox spacing="10" styleClass="panel">
+                    <Label text="Current Results" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="14" />
+                        </font>
+                    </Label>
+
+                    <GridPane hgap="10" vgap="8">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="100" />
+                            <ColumnConstraints hgrow="ALWAYS" />
+                        </columnConstraints>
+
+                        <Label text="π Estimate:" GridPane.rowIndex="0" styleClass="result-label" />
+                        <Label fx:id="piEstimateLabel" text="---"
+                            GridPane.rowIndex="0" GridPane.columnIndex="1"
+                            styleClass="result-value" />
+
+                        <Label text="Absolute Error:" GridPane.rowIndex="1"
+                            styleClass="result-label" />
+                        <Label fx:id="errorLabel" text="---"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1"
+                            styleClass="result-value" />
+
+                        <Label text="Points Used:" GridPane.rowIndex="2" styleClass="result-label" />
+                        <Label fx:id="pointsLabel" text="0"
+                            GridPane.rowIndex="2" GridPane.columnIndex="1"
+                            styleClass="result-value" />
+
+                        <Label text="Runtime:" GridPane.rowIndex="3" styleClass="result-label" />
+                        <Label fx:id="timeLabel" text="---"
+                            GridPane.rowIndex="3" GridPane.columnIndex="1"
+                            styleClass="result-value" />
+
+                        <Label text="Actual π:" GridPane.rowIndex="4" styleClass="result-label" />
+                        <Label text="3.1415926536"
+                            GridPane.rowIndex="4" GridPane.columnIndex="1"
+                            styleClass="result-value actual-pi" />
+                    </GridPane>
+                </VBox>
+
+                <!-- Batch Experiments -->
+                <VBox spacing="8" styleClass="panel">
+                    <Button text="Run Batch Experiments" onAction="#handleRunExperiments"
+                        maxWidth="Infinity" styleClass="secondary-button" />
+                </VBox>
+
+                <!-- Results Log -->
+                <VBox spacing="8" styleClass="panel" VBox.vgrow="ALWAYS">
+                    <Label text="Results Log" styleClass="section-title">
+                        <font>
+                            <Font name="System Bold" size="14" />
+                        </font>
+                    </Label>
+                    <TextArea fx:id="resultsTextArea" editable="false"
+                        wrapText="true" prefRowCount="8"
+                        VBox.vgrow="ALWAYS" />
+                </VBox>
+
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Bottom: Footer -->
+    <bottom>
+        <HBox styleClass="footer" alignment="CENTER" spacing="20">
+            <Label text="Monte Carlo Method: π ≈ 4 × (points inside circle) / (total points)" />
+        </HBox>
+    </bottom>
+
+</BorderPane>
